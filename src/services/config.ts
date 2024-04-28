@@ -8,6 +8,7 @@ import {ActivityType, PresenceStatusData} from 'discord.js';
 dotenv.config();
 
 export const DATA_DIR = path.resolve(process.env.DATA_DIR ? process.env.DATA_DIR : './data');
+export const COOKIES_JSON_PATH = process.env.COOKIES_JSON_PATH ? path.resolve(process.env.COOKIES_JSON_PATH) : path.join(DATA_DIR, "cookies.json");
 
 const CONFIG_MAP = {
   DISCORD_TOKEN: process.env.DISCORD_TOKEN,
@@ -16,6 +17,7 @@ const CONFIG_MAP = {
   SPOTIFY_CLIENT_SECRET: process.env.SPOTIFY_CLIENT_SECRET,
   REGISTER_COMMANDS_ON_BOT: process.env.REGISTER_COMMANDS_ON_BOT === 'true',
   DATA_DIR,
+  COOKIES_JSON_PATH,
   CACHE_DIR: path.join(DATA_DIR, 'cache'),
   CACHE_LIMIT_IN_BYTES: xbytes.parseSize(process.env.CACHE_LIMIT ?? '2GB'),
   BOT_STATUS: process.env.BOT_STATUS ?? 'online',
@@ -41,6 +43,7 @@ export default class Config {
   readonly SPOTIFY_CLIENT_SECRET!: string;
   readonly REGISTER_COMMANDS_ON_BOT!: boolean;
   readonly DATA_DIR!: string;
+  readonly COOKIES_JSON_PATH!: string;
   readonly CACHE_DIR!: string;
   readonly CACHE_LIMIT_IN_BYTES!: number;
   readonly BOT_STATUS!: PresenceStatusData;

@@ -81,10 +81,12 @@ export default class {
   private positionInSeconds = 0;
   private readonly fileCache: FileCacheProvider;
   private disconnectTimer: NodeJS.Timeout | null = null;
+  private readonly agent: ytdl.Agent;
 
-  constructor(fileCache: FileCacheProvider, guildId: string) {
+  constructor(fileCache: FileCacheProvider, guildId: string, agent: ytdl.Agent) {
     this.fileCache = fileCache;
     this.guildId = guildId;
+    this.agent = agent;
   }
 
   async connect(channel: VoiceChannel): Promise<void> {
@@ -449,7 +451,7 @@ export default class {
 
     if (!ffmpegInput) {
       // Not yet cached, must download
-      const info = await ytdl.getInfo(song.url);
+      const info = await ytdl.getInfo(song.url, { agent: this.agent });
 
       const formats = info.formats as YTDLVideoFormat[];
 
